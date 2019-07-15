@@ -1,0 +1,24 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t moz5691/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true moz5692/react-test yarn test
+
+after_success:
+  - docker build -t moz5691/eb-client ./client
+  - docker build -t moz5691/eb-nginx ./nginx
+  - docker build -t moz5692/eb-server ./server
+  - docker build -t moz5691/eb-worker ./worker
+
+  # login docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push images to Docker hub.
+  - docker push moz5691/eb-client
+  - docker push moz5691/eb-nginx
+  - docker push moz5691/eb-server
+  - docker push moz5691/eb-worker
