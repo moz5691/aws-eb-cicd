@@ -12,7 +12,7 @@ script:
 after_success:
   - docker build -t moz5691/eb-client ./client
   - docker build -t moz5691/eb-nginx ./nginx
-  - docker build -t moz5692/eb-server ./server
+  - docker build -t moz5691/eb-server ./server
   - docker build -t moz5691/eb-worker ./worker
 
   # login docker hub
