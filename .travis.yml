@@ -18,6 +18,7 @@ after_success:
   # login docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push images to Docker hub.
+
   - docker push moz5691/eb-client
   - docker push moz5691/eb-nginx
   - docker push moz5691/eb-server
